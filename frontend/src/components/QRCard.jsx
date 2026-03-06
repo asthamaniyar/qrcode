@@ -13,12 +13,26 @@ export function QRCard({ qr, onUpdate, onDelete }) {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleDownload = (format) => {
-    // Create download link
-    const link = document.createElement('a');
-    link.download = `qr-${qr.code}.${format}`;
-    link.href = qr.qrImage || '#';
-    link.click();
+  const handleDownload = async (format) => {
+    try {
+      if (!qr.qrImage) {
+        alert('QR code image not available. Please try refreshing the page.');
+        return;
+      }
+      
+      if (format === 'png') {
+        // Download PNG directly from data URL
+        const link = document.createElement('a');
+        link.download = `qr-${qr.code}.png`;
+        link.href = qr.qrImage;
+        link.click();
+      } else if (format === 'svg') {
+        alert('SVG download coming soon! For now, please use PNG format.');
+      }
+    } catch (error) {
+      console.error('Error downloading QR code:', error);
+      alert('Failed to download QR code. Please try again.');
+    }
   };
 
   return (

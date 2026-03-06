@@ -18,7 +18,13 @@ export const qrService = {
 
   // Get all QR codes
   getAllQRs: async (params = {}) => {
-    const response = await api.get('/qr', { params });
+    // Add includeImage=true for dashboard/cards to show QR images
+    const response = await api.get('/qr', { 
+      params: { 
+        ...params, 
+        includeImage: 'true' 
+      } 
+    });
     return response.data;
   },
 

@@ -121,7 +121,7 @@ exports.createQR = async (req, res) => {
 // @route   GET /api/qr
 exports.getAllQRs = async (req, res) => {
   try {
-    const { page = 1, limit = 20, search = '' } = req.query;
+    const { page = 1, limit = 20, search = '', includeImage = 'false' } = req.query;
     const skip = (page - 1) * limit;
 
     let query = {};
@@ -140,11 +140,35 @@ exports.getAllQRs = async (req, res) => {
       .limit(parseInt(limit))
       .skip(parseInt(skip));
 
+    // Generate QR images if requested (for dashboard/cards)
+    const qrcodesWithImages = includeImage === 'true' ? 
+      await Promise.all(qrcodes.map(async (qr) => {
+        try {
+          const domain = process.env.DOMAIN || 'http://localhost:5000';
+          const redirectUrl = `${domain}/r/${qr.code}`;
+          const qrImageData = await QRCode.toDataURL(redirectUrl, {
+            width: 300,
+            margin: 2,
+            color: {
+              dark: qr.foregroundColor || '#000000',
+              light: qr.backgroundColor || '#FFFFFF'
+            }
+          });
+          return {
+            ...qr.toObject(),
+            qrImage: qrImageData
+          };
+        } catch (error) {
+          console.error(`Error generating QR image for ${qr.code}:`, error);
+          return qr.toObject();
+        }
+      })) : qrcodes.map(qr => qr.toObject());
+
     const total = await QR.countDocuments(query);
 
     res.json({
       success: true,
-      data: qrcodes,
+      data: qrcodesWithImages,
       pagination: {
         total,
         page: parseInt(page),
@@ -350,8 +374,120 @@ exports.redirect = async (req, res) => {
     qr.scanCount += 1;
     await qr.save();
 
-    // Redirect to destination URL
-    res.redirect(302, qr.destinationUrl);
+    // Create intermediate page with auto-redirect and session storage
+    const domain = process.env.DOMAIN || 'http://localhost:5000';
+    res.send(`
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Redirecting...</title>
+        <style>
+          body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+          }
+          .container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+          }
+          h1 { font-size: 32px; margin-bottom: 20px; }
+          p { font-size: 18px; opacity: 0.9; }
+          .spinner {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+          }
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          .manual-link {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+          }
+          .manual-link:hover {
+            background: rgba(255,255,255,0.3);
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>🚀 Redirecting...</h1>
+          <p>Taking you to ${qr.title}</p>
+          <div class="spinner"></div>
+          <a href="${qr.destinationUrl}" class="manual-link">Click here if not redirected</a>
+        </div>
+        
+        <script>
+          // Use localStorage to remember QR redirects permanently
+          const qrStorageKey = 'qr_redirect_${code}';
+          const storedData = localStorage.getItem(qrStorageKey);
+          const currentTime = Date.now();
+          
+          // Check if URL was updated since last visit
+          if (storedData) {
+            const parsed = JSON.parse(storedData);
+            
+            // If destination URL changed, use new URL immediately
+            if (parsed.url !== '${qr.destinationUrl}') {
+              console.log('QR destination updated! Redirecting to new URL...');
+              // Update storage with new URL
+              localStorage.setItem(qrStorageKey, JSON.stringify({
+                code: '${code}',
+                lastVisit: currentTime,
+                url: '${qr.destinationUrl}',
+                visitCount: (parsed.visitCount || 1) + 1
+              }));
+              window.location.href = '${qr.destinationUrl}';
+            } else {
+              // Same URL - instant redirect without page load
+              console.log('Same QR, same URL - instant redirect');
+              window.location.href = '${qr.destinationUrl}';
+            }
+          } else {
+            // First time visit - store and redirect
+            console.log('First visit - storing redirect info');
+            localStorage.setItem(qrStorageKey, JSON.stringify({
+              code: '${code}',
+              firstVisit: currentTime,
+              lastVisit: currentTime,
+              url: '${qr.destinationUrl}',
+              visitCount: 1
+            }));
+            window.location.href = '${qr.destinationUrl}';
+          }
+          
+          // Fallback redirect after 1.5 seconds
+          setTimeout(function() {
+            window.location.href = '${qr.destinationUrl}';
+          }, 1500);
+        </script>
+      </body>
+      </html>
+    `);
 
   } catch (error) {
     console.error('Redirect error:', error);

@@ -105,19 +105,46 @@ export function CreateQR() {
       }
     } catch (error) {
       console.error('Error:', error);
-      alert(error.response?.data?.message || 'Failed to process QR code');
+      
+      // Get detailed error message
+      let errorMessage = 'Failed to process QR code';
+      
+      if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      } else if (error.response?.data?.error) {
+        errorMessage = error.response.data.error;
+      } else if (error.message) {
+        errorMessage = error.message;
+      } else if (error.code === 'ECONNREFUSED') {
+        errorMessage = 'Cannot connect to backend server. Please make sure the backend is running on port 5000.';
+      } else if (error.code === 'ERR_NETWORK') {
+        errorMessage = 'Network error. Please check if the backend server is running.';
+      }
+      
+      alert(errorMessage);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleDownload = (format) => {
+  const handleDownload = async (format) => {
     if (!qrImage) return;
     
-    const link = document.createElement('a');
-    link.download = `qr-${createdQR?.code || 'preview'}.${format}`;
-    link.href = qrImage;
-    link.click();
+    try {
+      if (format === 'png') {
+        // Download PNG directly from data URL
+        const link = document.createElement('a');
+        link.download = `qr-${createdQR?.code || 'preview'}.png`;
+        link.href = qrImage;
+        link.click();
+      } else if (format === 'svg') {
+        // Convert to SVG if needed, or show message
+        alert('SVG download coming soon! For now, please use PNG format.');
+      }
+    } catch (error) {
+      console.error('Error downloading QR code:', error);
+      alert('Failed to download QR code. Please try again or take a screenshot.');
+    }
   };
 
   const handleCopyUrl = async () => {
