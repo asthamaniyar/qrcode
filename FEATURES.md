@@ -6,7 +6,7 @@
 - [x] Unlimited QR code creation
 - [x] Unique 7-character codes using nanoid
 - [x] Redirect-based architecture (QR never contains destination URL)
-- [x] Format: `https://qrer.er/r/{code}`
+- [x] Format: `https://qrer.errorinfotech.in/r/{code}`
 - [x] Real-time QR preview during creation
 - [x] Automatic QR image generation (PNG format)
 
@@ -485,4 +485,4 @@ This is a **COMPLETE, PRODUCTION-READY** SaaS platform with:
 
 **You now have a complete Dynamic QR Code Generator platform ready to launch! 🚀**
 
-All features from the original requirements are implemented and working. The system is designed to run on https://qrer.er or any other domain with proper configuration.
+All features from the original requirements are implemented and working. The system is designed to run on https://qrer.errorinfotech.in or any other domain with proper configuration.

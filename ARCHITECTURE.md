@@ -441,7 +441,7 @@ qrCodeSchema.index({ createdAt: -1 });
                       └──────────────┘
 ```
 
-### Production Environment (https://qrer.er)
+### Production Environment (http://qrer.errorinfotech.in)
 
 ```
 ┌─────────────────────────────────────────┐

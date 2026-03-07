@@ -84,7 +84,7 @@ qr/
 ### ✅ 1. Dynamic QR Generation
 - Unlimited QR codes with unique 7-char codes
 - Redirect-based architecture
-- Format: `https://qrer.er/r/{code}`
+- Format: `https://qrer.errorinfotech.in/r/{code}`
 - Real-time preview
 - 6 different styles
 
@@ -376,7 +376,7 @@ http://localhost:5173
 
 1. **MongoDB Atlas Account** (free tier available)
 2. **Hosting Platform** (Railway, Render, Heroku, or VPS)
-3. **Domain Configuration** (qr.er.er)
+3. **Domain Configuration** (qrer.errorinfotech.in)
 4. **SSL Certificate** (usually provided by hosting)
 5. **Environment Variables** (production values)
 
@@ -450,7 +450,7 @@ As you grow, consider:
 - [x] Download options ✅
 - [x] Customization features ✅
 - [x] Works on localhost ✅
-- [x] Ready for https://qrer.er ✅
+- [x] Ready for https://qrer.errorinfotech.in ✅
 
 ### Bonus Features Added
 - [x] 6 different QR styles ✅
@@ -549,7 +549,7 @@ You now have a **COMPLETE** Dynamic QR Code Generator platform that:
 ✅ Uses modern, professional tech stack
 ✅ Includes comprehensive documentation
 ✅ Is ready for immediate local development
-✅ Can be deployed to production (https://qrer.er)
+✅ Can be deployed to production (https://qrer.errorinfotech.in)
 ✅ Supports unlimited QR codes
 ✅ Allows editing destinations anytime
 ✅ Has beautiful, responsive UI
@@ -570,4 +570,4 @@ You have successfully received a complete, full-stack SaaS platform worth 100+ h
 
 **Built with ❤️ using React, Node.js, Express, MongoDB, and TailwindCSS**
 
-*Ready for deployment on https://qrer.er*
+*Ready for deployment on https://qrer.errorinfotech.in*

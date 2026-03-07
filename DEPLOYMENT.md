@@ -1,11 +1,11 @@
-# 🚀 Production Deployment Guide for qrer.er
+# 🚀 Production Deployment Guide for qrer.errorinfotech.in
 
-This guide covers deploying the Dynamic QR Generator to production on the domain https://qrer.er
+This guide covers deploying the Dynamic QR Generator to production on the domain https://qrer.errorinfotech.in
 
 ## Architecture Overview
 
 ```
-User scans QR → https://qrer.er/r/abc123
+User scans QR → https://qrer.errorinfotech.in/r/abc123
                     ↓
             Backend (Express)
                     ↓
@@ -16,7 +16,7 @@ User scans QR → https://qrer.er/r/abc123
 
 ## Prerequisites
 
-- Domain: qrer.er configured with hosting
+- Domain: qrer.errorinfotech.in configured with hosting
 - MongoDB Atlas account or MongoDB server
 - Node.js hosting platform
 - SSL certificate (usually provided by hosting)
@@ -71,10 +71,10 @@ mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/qr_generator?retryWri
 
 ```env
 MONGODB_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/qr_generator?retryWrites=true&w=majority
-PORT=5000
+PORT=5003
 NODE_ENV=production
-DOMAIN=https://qrer.er
-FRONTEND_URL=https://qrer.er
+DOMAIN=https://qrer.errorinfotech.in
+FRONTEND_URL=https://qrer.errorinfotech.in
 ```
 
 ### Security Enhancements
@@ -83,7 +83,7 @@ Update `backend/server.js` to add CORS restrictions:
 
 ```javascript
 const corsOptions = {
-  origin: ['https://qrer.er', 'http://localhost:5173'],
+  origin: ['https://qrer.errorinfotech.in', 'http://localhost:5173'],
   credentials: true
 };
 app.use(cors(corsOptions));
@@ -103,8 +103,8 @@ npm install --production
 ### Update frontend/.env
 
 ```env
-VITE_API_URL=https://qrer.er/api
-VITE_DOMAIN=https://qrer.er
+VITE_API_URL=https://qrer.errorinfotech.in/api
+VITE_DOMAIN=https://qrer.errorinfotech.in
 ```
 
 ### Build Frontend
@@ -208,7 +208,7 @@ pm2 startup
 ```nginx
 server {
     listen 80;
-    server_name qr.er.er;
+    server_name qrer.errorinfotech.in;
 
     location /api {
         proxy_pass http://localhost:5000;
@@ -233,7 +233,7 @@ server {
 7. Enable HTTPS with Let's Encrypt:
 ```bash
 sudo apt install certbot python3-certbot-nginx
-sudo certbot --nginx -d qr.er.er
+sudo certbot --nginx -d qrer.errorinfotech.in
 ```
 
 ---
@@ -243,16 +243,16 @@ sudo certbot --nginx -d qr.er.er
 ### Backend (.env)
 ```env
 MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/qr_generator
-PORT=5000
+PORT=5003
 NODE_ENV=production
-DOMAIN=https://qrer.er
-FRONTEND_URL=https://qrer.er
+DOMAIN=https://qrer.errorinfotech.in
+FRONTEND_URL=https://qrer.errorinfotech.in
 ```
 
 ### Frontend (.env)
 ```env
-VITE_API_URL=https://qrer.er/api
-VITE_DOMAIN=https://qrer.er
+VITE_API_URL=https://qrer.errorinfotech.in/api
+VITE_DOMAIN=https://qrer.errorinfotech.in
 ```
 
 ---
@@ -273,7 +273,7 @@ TTL: Auto
 
 Type: CNAME
 Name: www
-Value: qr.er.er
+Value: qrer.errorinfotech.in
 ```
 
 Wait 24-48 hours for DNS propagation.
@@ -286,11 +286,11 @@ Wait 24-48 hours for DNS propagation.
 
 1. **Test QR Generation:**
    - Create test QR code
-   - Verify it contains: `https://qrer.er/r/{code}`
+   - Verify it contains: `https://qrer.errorinfotech.in/r/{code}`
    - NOT localhost or IP
 
 2. **Test Redirect:**
-   - Scan QR or visit: `https://qrer.er/r/{test-code}`
+   - Scan QR or visit: `https://qrer.errorinfotech.in/r/{test-code}`
    - Should redirect to destination URL
    - Check scan count increases
 
@@ -381,7 +381,7 @@ Wait 24-48 hours for DNS propagation.
 // backend/server.js
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://qrer.er'] 
+    ? ['https://qrer.errorinfotech.in'] 
     : ['http://localhost:5173']
 }));
 ```
@@ -462,7 +462,7 @@ Before announcing launch:
 
 - MongoDB Atlas (M0 Free): $0/month
 - Hosting (Railway/Render Basic): $5-10/month
-- Domain (qr.er.er): ~$12/year
+- Domain (qrer.errorinfotech.in): ~$12/year
 - **Total: ~$5-10/month**
 
 At scale (10,000+ QR codes):

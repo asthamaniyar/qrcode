@@ -158,7 +158,7 @@ Complete guide to all documentation files in this project.
 ---
 
 ### DEPLOYMENT.md
-**Purpose:** Production deployment guide for qrer.er
+**Purpose:** Production deployment guide for qrer.errorinfotech.in
 
 **Contents:**
 - Architecture overview

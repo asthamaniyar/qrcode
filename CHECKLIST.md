@@ -503,7 +503,7 @@ curl -X PUT http://localhost:5000/api/qr/{code} \
 
 ## 🎯 Production Readiness Checklist
 
-### Before Deploying to qrer.er
+### Before Deploying to qrer.errorinfotech.in
 
 **Database:**
 - [ ] MongoDB Atlas account created
@@ -512,7 +512,7 @@ curl -X PUT http://localhost:5000/api/qr/{code} \
 
 **Backend:**
 - [ ] NODE_ENV=production
-- [ ] DOMAIN=https://qrer.er
+- [ ] DOMAIN=http://qrer.errorinfotech.in
 - [ ] CORS restricted to production domain
 - [ ] Rate limiting considered
 
@@ -598,7 +598,7 @@ If all boxes are checked, you have a fully functional Dynamic QR Generator platf
 3. **Deploy:**
    - Follow DEPLOYMENT.md
    - Set up production environment
-   - Launch on qrer.er
+   - Launch on qrer.errorinfotech.in
 
 4. **Maintain:**
    - Regular updates

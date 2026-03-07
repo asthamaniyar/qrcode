@@ -219,7 +219,7 @@ This is the power of dynamic QR codes!
 
 ---
 
-## Production Deployment (https://qrer.er)
+## Production Deployment (http://qrer.errorinfotech.in)
 
 ### Backend Setup
 
@@ -228,17 +228,17 @@ This is the power of dynamic QR codes!
 ```env
 MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/qr_generator
 NODE_ENV=production
-DOMAIN=https://qrer.er
+DOMAIN=http://qrer.errorinfotech.in
 ```
 
-3. Deploy backend to hosting (Heroku, DigitalOcean, AWS, etc.)
+3. Deploy backend to hosting (Heroku, DigitalOcean, AWS, Hostinger, etc.)
 
 ### Frontend Setup
 
 1. Update frontend/.env:
 ```env
-VITE_API_URL=https://qrer.er/api
-VITE_DOMAIN=https://qrer.er
+VITE_API_URL=http://qrer.errorinfotech.in/api
+VITE_DOMAIN=http://qrer.errorinfotech.in
 ```
 
 2. Build:
@@ -252,7 +252,7 @@ npm run build
 ### Important Production Notes
 
 ⚠️ **Domain Configuration:**
-- QR codes will contain: `https://qrer.er/r/{code}`
+- QR codes will contain: `http://qrer.errorinfotech.in/r/{code}`
 - Make sure domain is accessible
 - HTTPS is recommended
 

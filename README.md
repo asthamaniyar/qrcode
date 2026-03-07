@@ -18,7 +18,7 @@ The QR code **NEVER** contains the destination URL directly. Instead:
 
 1. User enters destination URL (e.g., `https://example.com`)
 2. System generates unique code (e.g., `7HGsa9K`)
-3. QR code stores: `https://qrer.er/r/7HGsa9K`
+3. QR code stores: `http://qrer.errorinfotech.in/r/7HGsa9K`
 4. When scanned, system redirects to the stored destination URL
 
 This allows editing the destination URL anytime without changing the QR code!
@@ -233,20 +233,20 @@ Open your browser and go to: **http://localhost:5173**
 
 ## Production Deployment
 
-### For https://qrer.er domain:
+### For http://qrer.errorinfotech.in domain:
 
 1. Update backend `.env`:
 ```env
 MONGODB_URI=your_production_mongodb_uri
-PORT=5000
+PORT=5003
 NODE_ENV=production
-DOMAIN=https://qrer.er
+DOMAIN=http://qrer.errorinfotech.in
 ```
 
 2. Update frontend `.env`:
 ```env
-VITE_API_URL=https://qrer.er/api
-VITE_DOMAIN=https://qrer.er
+VITE_API_URL=http://qrer.errorinfotech.in/api
+VITE_DOMAIN=http://qrer.errorinfotech.in
 ```
 
 3. Build frontend:
