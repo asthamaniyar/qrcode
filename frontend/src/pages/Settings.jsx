@@ -21,14 +21,14 @@ export function Settings() {
                 Local Development: http://localhost:5003
               </p>
               <p className="text-muted-foreground">
-                Production: https://qrer.er
+                Production: http://qrer.errorinfotech.in
               </p>
             </div>
             
             <div>
               <p className="font-medium">QR Code Format</p>
               <p className="text-muted-foreground">
-                All QR codes are generated with the format: https://qrer.er/r/{'{code}'}
+                All QR codes are generated with the format: http://qrer.errorinfotech.in/r/{'{code}'}
               </p>
             </div>
 
