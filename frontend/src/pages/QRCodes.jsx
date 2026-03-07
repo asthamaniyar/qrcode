@@ -57,12 +57,12 @@ export function QRCodes() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold">QR Codes</h1>
+          <h1 className="text-2xl font-bold sm:text-3xl">QR Codes</h1>
           <p className="text-muted-foreground">Manage all your dynamic QR codes</p>
         </div>
-        <Button onClick={() => navigate('/create')}>
+        <Button onClick={() => navigate('/create')} className="w-full sm:w-auto">
           Create New QR
         </Button>
       </div>
@@ -85,7 +85,7 @@ export function QRCodes() {
         </div>
       ) : qrcodes.length > 0 ? (
         <>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {qrcodes.map((qr) => (
               <QRCard
                 key={qr.code}
@@ -97,16 +97,17 @@ export function QRCodes() {
           </div>
 
           {/* Pagination */}
-          <div className="flex items-center justify-between pt-4 border-t">
-            <p className="text-sm text-muted-foreground">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t">
+            <p className="text-sm text-muted-foreground text-center sm:text-left">
               Showing {qrcodes.length} of {pagination.total} QR codes
             </p>
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-full sm:w-auto">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setPagination(prev => ({ ...prev, page: prev.page - 1 }))}
                 disabled={pagination.page <= 1}
+                className="flex-1 sm:flex-none"
               >
                 Previous
               </Button>
@@ -115,6 +116,7 @@ export function QRCodes() {
                 size="sm"
                 onClick={() => setPagination(prev => ({ ...prev, page: prev.page + 1 }))}
                 disabled={pagination.page >= pagination.pages}
+                className="flex-1 sm:flex-none"
               >
                 Next
               </Button>

@@ -4,7 +4,7 @@ export function Settings() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Settings</h1>
+        <h1 className="text-2xl font-bold sm:text-3xl">Settings</h1>
         <p className="text-muted-foreground">Manage your account and preferences</p>
       </div>
 
@@ -18,7 +18,10 @@ export function Settings() {
                 Production Domain: https://qrer.er
               </p>
               <p className="text-muted-foreground">
-                Local Development: http://localhost:5000
+                Local Development: http://localhost:5003
+              </p>
+              <p className="text-muted-foreground">
+                Production: https://qrer.er
               </p>
             </div>
             

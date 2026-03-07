@@ -55,7 +55,7 @@ export function CreateQR() {
 
   const generateQRPreview = async () => {
     try {
-      const domain = import.meta.env.VITE_DOMAIN || 'http://localhost:5000';
+      const domain = import.meta.env.VITE_DOMAIN || 'https://qrer.er';
       const tempRedirectUrl = `${domain}/r/preview`;
       
       const dataUrl = await QRCode.toDataURL(tempRedirectUrl, {
@@ -116,7 +116,7 @@ export function CreateQR() {
       } else if (error.message) {
         errorMessage = error.message;
       } else if (error.code === 'ECONNREFUSED') {
-        errorMessage = 'Cannot connect to backend server. Please make sure the backend is running on port 5000.';
+        errorMessage = 'Cannot connect to backend server. Please make sure the backend is running on port 5003.';
       } else if (error.code === 'ERR_NETWORK') {
         errorMessage = 'Network error. Please check if the backend server is running.';
       }
@@ -150,7 +150,7 @@ export function CreateQR() {
   const handleCopyUrl = async () => {
     if (!createdQR) return;
     
-    const domain = import.meta.env.VITE_DOMAIN || 'http://localhost:5000';
+    const domain = import.meta.env.VITE_DOMAIN || 'https://qrer.er';
     const redirectUrl = `${domain}/r/${createdQR.code}`;
     
     await navigator.clipboard.writeText(redirectUrl);
@@ -161,11 +161,11 @@ export function CreateQR() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">{editMode ? 'Edit QR Code' : 'Create QR Code'}</h1>
+        <h1 className="text-2xl font-bold sm:text-3xl">{editMode ? 'Edit QR Code' : 'Create QR Code'}</h1>
         <p className="text-muted-foreground">Generate dynamic QR codes that can be edited anytime</p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-6 grid-cols-1 lg:grid-cols-2">
         {/* Form */}
         <Card>
           <CardContent className="pt-6">
@@ -275,7 +275,7 @@ export function CreateQR() {
                   <img 
                     src={qrImage} 
                     alt="QR Preview"
-                    className="mx-auto max-w-[300px] rounded-lg border"
+                    className="mx-auto max-w-[200px] sm:max-w-[250px] lg:max-w-[300px] rounded-lg border"
                   />
                   
                   {createdQR && (
@@ -283,7 +283,7 @@ export function CreateQR() {
                       <div className="text-sm">
                         <p className="text-muted-foreground">Short URL:</p>
                         <p className="font-mono text-xs break-all bg-muted p-2 rounded mt-1">
-                          {`${import.meta.env.VITE_DOMAIN || 'http://localhost:5000'}/r/${createdQR.code}`}
+                          {`${import.meta.env.VITE_DOMAIN || 'https://qrer.er'}/r/${createdQR.code}`}
                         </p>
                       </div>
                       

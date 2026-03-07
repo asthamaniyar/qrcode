@@ -34,6 +34,22 @@ export function Dashboard() {
     }
   };
 
+  const handleDelete = async (code) => {
+    if (!confirm('Are you sure you want to delete this QR code?')) return;
+
+    try {
+      await qrService.deleteQR(code);
+      setQrcodes(qrcodes.filter(qr => qr.code !== code));
+      alert('QR Code deleted successfully!');
+      // Reload analytics to update counts
+      const analyticsRes = await qrService.getOverallAnalytics();
+      setAnalytics(analyticsRes.data);
+    } catch (error) {
+      console.error('Error deleting QR code:', error);
+      alert('Failed to delete QR code');
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-full">
@@ -45,12 +61,12 @@ export function Dashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Dashboard</h1>
+        <h1 className="text-2xl font-bold sm:text-3xl">Dashboard</h1>
         <p className="text-muted-foreground">Welcome to your QR Code Generator</p>
       </div>
 
       {/* Stats */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         <StatsCard
           title="Total QR Codes"
           value={analytics?.totalQRCodes || 0}
@@ -79,13 +95,13 @@ export function Dashboard() {
         </div>
 
         {qrcodes.length > 0 ? (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
             {qrcodes.map((qr) => (
               <QRCard
                 key={qr.code}
                 qr={qr}
                 onUpdate={(qr) => navigate('/create', { state: { editMode: true, qr } })}
-                onDelete={loadData}
+                onDelete={handleDelete}
               />
             ))}
           </div>

@@ -52,7 +52,7 @@ exports.createQR = async (req, res) => {
     }
 
     // Create redirect URL
-    const domain = process.env.DOMAIN || 'http://localhost:5000';
+    const domain = process.env.DOMAIN || 'http://localhost:5003';
     const redirectUrl = `${domain}/r/${code}`;
 
     // Generate QR code as data URL
@@ -144,7 +144,7 @@ exports.getAllQRs = async (req, res) => {
     const qrcodesWithImages = includeImage === 'true' ? 
       await Promise.all(qrcodes.map(async (qr) => {
         try {
-          const domain = process.env.DOMAIN || 'http://localhost:5000';
+          const domain = process.env.DOMAIN || 'http://localhost:5003';
           const redirectUrl = `${domain}/r/${qr.code}`;
           const qrImageData = await QRCode.toDataURL(redirectUrl, {
             width: 300,
@@ -202,7 +202,7 @@ exports.getQRByCode = async (req, res) => {
       });
     }
 
-    const domain = process.env.DOMAIN || 'http://localhost:5000';
+    const domain = process.env.DOMAIN || 'http://localhost:5003';
     const redirectUrl = `${domain}/r/${code}`;
 
     res.json({
@@ -375,7 +375,7 @@ exports.redirect = async (req, res) => {
     await qr.save();
 
     // Create intermediate page with auto-redirect and session storage
-    const domain = process.env.DOMAIN || 'http://localhost:5000';
+    const domain = process.env.DOMAIN || 'http://localhost:5003';
     res.send(`
       <!DOCTYPE html>
       <html lang="en">
