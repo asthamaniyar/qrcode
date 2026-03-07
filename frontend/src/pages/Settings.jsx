@@ -15,7 +15,7 @@ export function Settings() {
             <div>
               <p className="font-medium">Domain Configuration</p>
               <p className="text-muted-foreground">
-                Production Domain: https://qrer.er
+                Production Domain: http://qrer.errorinfotech.in
               </p>
               <p className="text-muted-foreground">
                 Local Development: http://localhost:5003

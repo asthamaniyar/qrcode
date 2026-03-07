@@ -23,7 +23,7 @@ connectDB();
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174', 'https://qrcode-38es.vercel.app', 'https://qrer.er'],
+  origin: ['http://localhost:5173', 'http://localhost:5174', 'http://qrer.errorinfotech.in', 'https://qrcode-38es.vercel.app'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']

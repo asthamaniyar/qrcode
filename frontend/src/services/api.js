@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://qrer.er/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://qrer.errorinfotech.in/api';
 
 const api = axios.create({
   baseURL: API_URL,

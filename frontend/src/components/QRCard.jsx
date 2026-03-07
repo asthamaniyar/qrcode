@@ -4,7 +4,7 @@ import { Button } from './ui';
 
 export function QRCard({ qr, onUpdate, onDelete }) {
   const [copied, setCopied] = useState(false);
-  const domain = import.meta.env.VITE_DOMAIN || 'https://qrer.er';
+  const domain = import.meta.env.VITE_DOMAIN || 'http://qrer.errorinfotech.in';
   const redirectUrl = `${domain}/r/${qr.code}`;
 
   const handleCopy = async () => {

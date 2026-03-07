@@ -55,7 +55,7 @@ export function CreateQR() {
 
   const generateQRPreview = async () => {
     try {
-      const domain = import.meta.env.VITE_DOMAIN || 'https://qrer.er';
+      const domain = import.meta.env.VITE_DOMAIN || 'http://qrer.errorinfotech.in';
       const tempRedirectUrl = `${domain}/r/preview`;
       
       const dataUrl = await QRCode.toDataURL(tempRedirectUrl, {
@@ -150,7 +150,7 @@ export function CreateQR() {
   const handleCopyUrl = async () => {
     if (!createdQR) return;
     
-    const domain = import.meta.env.VITE_DOMAIN || 'https://qrer.er';
+    const domain = import.meta.env.VITE_DOMAIN || 'http://qrer.errorinfotech.in';
     const redirectUrl = `${domain}/r/${createdQR.code}`;
     
     await navigator.clipboard.writeText(redirectUrl);
@@ -283,7 +283,7 @@ export function CreateQR() {
                       <div className="text-sm">
                         <p className="text-muted-foreground">Short URL:</p>
                         <p className="font-mono text-xs break-all bg-muted p-2 rounded mt-1">
-                          {`${import.meta.env.VITE_DOMAIN || 'https://qrer.er'}/r/${createdQR.code}`}
+                          {`${import.meta.env.VITE_DOMAIN || 'http://qrer.errorinfotech.in'}/r/${createdQR.code}`}
                         </p>
                       </div>
                       
